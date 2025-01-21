@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package card;
+
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * A class that fills a magic hand of 7 cards with random Card Objects
@@ -11,22 +10,62 @@ package card;
  * @author srinivsi
  */
 public class CardTrick {
-    
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
+        // Create a random hand of 7 cards
         Card[] magicHand = new Card[7];
-        
-        for (int i=0; i<magicHand.length; i++)
-        {
-            Card c = new Card();
-            //c.setValue(insert call to random number generator here)
-            //c.setSuit(Card.SUITS[insert call to random number between 0-3 here])
+        Random rand = new Random();
+
+        // Fill the magic hand with random cards
+        for (int i = 0; i < magicHand.length; i++) {
+            int value = rand.nextInt(13) + 1;  // Random value between 1 and 13
+            String suit = Card.SUITS[rand.nextInt(4)];  // Random suit
+            magicHand[i] = new Card(value, suit);  // Create new card and add to hand
         }
-        
-        //insert code to ask the user for Card value and suit, create their card
-        // and search magicHand here
-        //Then report the result here
-        // add one luckcard hard code 2,clubs
+
+        // Display the magic hand of cards
+        System.out.println("Your random magic hand of cards:");
+        for (Card card : magicHand) {
+            System.out.println(card);
+        }
+
+        try ( 
+                Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Pick a card (e.g., Ace of Hearts, 10 of Diamonds): ");
+            String userCardInput = scanner.nextLine().trim();
+            
+            
+            boolean found = false;
+            for (Card card : magicHand) {
+                if (card.toString().equalsIgnoreCase(userCardInput)) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (found) {
+                System.out.println("Your card is in the magic hand!");
+            } else {
+                System.out.println("Your card is not in the magic hand.");
+            }
+            
+            
+            Card luckyCard = new Card(2, "Clubs");
+            
+            
+            boolean foundLuckyCard = false;
+            for (Card card : magicHand) {
+                if (card.toString().equals(luckyCard.toString())) {
+                    foundLuckyCard = true;
+                    break;
+                }
+            }
+            
+            if (foundLuckyCard) {
+                System.out.println("You found the lucky card: " + luckyCard);
+            } else {
+                System.out.println("Sorry, the lucky card is not in the magic hand.");
+            }
+        }
     }
-    
 }
