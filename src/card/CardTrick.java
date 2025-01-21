@@ -52,7 +52,7 @@ public class CardTrick {
             
             Card luckyCard = new Card(2, "Clubs");
             
-            
+            System.out.println("Lucky card: " + luckyCard);
             boolean foundLuckyCard = false;
             for (Card card : magicHand) {
                 if (card.toString().equals(luckyCard.toString())) {
